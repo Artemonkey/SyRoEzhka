@@ -1,1 +1,1 @@
-# SRE course
+# SRE
