@@ -26,6 +26,7 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
+        - containerPort: 8000
         livenessProbe:
           httpGet:
             path: /healthcheck

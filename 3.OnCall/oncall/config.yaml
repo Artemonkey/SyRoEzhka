@@ -10,7 +10,10 @@ data:
       port: 8080
     debug: True
     oncall_host: oncall.local
-    metrics: dummy
+    metrics: prometheus
+    prometheus:
+      oncall_metrics:
+        server_port: 8000
     db:
       conn:
         kwargs:

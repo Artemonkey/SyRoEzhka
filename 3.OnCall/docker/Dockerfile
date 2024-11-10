@@ -17,9 +17,9 @@ COPY LICENSE /home/oncall/source/LICENSE
 WORKDIR /home/oncall
 
 RUN chown -R oncall:oncall /home/oncall/source /var/log/nginx /var/lib/nginx \
-  && sudo -Hu oncall mkdir -p /home/oncall/var/log/uwsgi /home/oncall/var/log/nginx /home/oncall/var/run /home/oncall/var/relay \
-  && sudo -Hu oncall python3 -m venv /home/oncall/env \
-  && sudo -Hu oncall /bin/bash -c 'http_proxy=http://10.128.0.4:3128 HTTP_PROXY=http://10.128.0.4:3128 https_proxy=http://10.128.0.4:3128 HTTPS_PROXY=http://10.128.0.4:3128 source /home/oncall/env/bin/activate && cd /home/oncall/source && pip install --proxy=http://10.128.0.4:3128 wheel backports.zoneinfo && http_proxy=http://10.128.0.4:3128 HTTP_PROXY=http://10.128.0.4:3128 https_proxy=http://10.128.0.4:3128 HTTPS_PROXY=http://10.128.0.4:3128 pip install --proxy=http://10.128.0.4:3128 . '
+    && sudo -Hu oncall mkdir -p /home/oncall/var/log/uwsgi /home/oncall/var/log/nginx /home/oncall/var/run /home/oncall/var/relay \
+    && sudo -Hu oncall python3 -m venv /home/oncall/env \
+    && sudo -Hu oncall /bin/bash -c 'source /home/oncall/env/bin/activate && cd /home/oncall/source && pip install wheel && pip install prometheus_client && pip install .'
 
 COPY ops/config/systemd /etc/systemd/system
 COPY ops/daemons /home/oncall/daemons
@@ -29,5 +29,6 @@ COPY configs /home/oncall/config
 COPY ops/entrypoint.py /home/oncall/entrypoint.py
 
 EXPOSE 8080
+EXPOSE 8000
 
 CMD ["sudo", "-EHu", "oncall", "bash", "-c", "source /home/oncall/env/bin/activate && python -u /home/oncall/entrypoint.py"]
