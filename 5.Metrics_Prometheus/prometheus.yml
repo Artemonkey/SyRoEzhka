@@ -9,3 +9,7 @@ scrape_configs:
     scrape_interval: 10s
     static_configs:
       - targets: ['oncall.metrics.local:8000']
+  - job_name: 'kube-state'
+    scrape_interval: 7s
+    static_configs:
+      - targets: ['localhost:8000']
