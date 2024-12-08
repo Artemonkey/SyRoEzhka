@@ -13,3 +13,7 @@ scrape_configs:
     scrape_interval: 7s
     static_configs:
       - targets: ['kube-state-metrics.local']
+  - job_name: 'oncall-user-prober'
+    scrape_interval: 8s
+    static_configs:
+      - targets: ['my-prober.local']
