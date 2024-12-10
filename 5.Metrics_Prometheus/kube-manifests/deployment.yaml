@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - name: prometheus
+        image: prom-docker:latest
+        env:
+        - name: DOCKER_DB_BOOTSTRAP
+          value: "1"
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9090

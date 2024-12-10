@@ -51,13 +51,13 @@ class OncallProberClient:
         finally:
             try:
                 delete_request = requests.delete(
-                    '%s/user/%s' % (self.oncall_api_url, username)
+                    '%s/users/%s' % (self.oncall_api_url, username)
                 )
             except Exception as err:
                 logging.debug(err)
         
-        if create_request and create_request.status_code == 201 and delete_request.status_code ==200:
-            PROBER_CREATE_USER_SCENARIO_TOTAL.inc()
+        if create_request and create_request.status_code == 201 and delete_request.status_code == 200:
+            PROBER_CREATE_USER_SCENARIO_SUCCESS_TOTAL.inc()
         else:
             PROBER_CREATE_USER_SCENARIO_SUCCESS_FAIL_TOTAL.inc()
         

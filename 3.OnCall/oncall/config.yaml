@@ -32,7 +32,7 @@ data:
       encrypt_key: 'abc'
       sign_key: '123'
     auth:
-      debug: False
+      debug: True
       module: 'oncall.auth.modules.debug'
     notifier:
       skipsend: True
