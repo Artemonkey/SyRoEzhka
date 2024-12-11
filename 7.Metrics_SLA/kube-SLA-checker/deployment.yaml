@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sla-checker
+  labels:
+    app: sla-checker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sla-checker
+  template:
+    metadata:
+      labels:
+        app: sla-checker
+    spec:
+      containers:
+      - name: sla-checker
+        image: sla-checker:latest
+        env:
+        - name: DOCKER_DB_BOOTSTRAP
+          value: "1"
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80

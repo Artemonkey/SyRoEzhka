@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-prober
+  labels:
+    app: my-prober
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-prober
+  template:
+    metadata:
+      labels:
+        app: my-prober
+    spec:
+      containers:
+      - name: my-prober
+        image: my-prober:latest
+        env:
+        - name: DOCKER_DB_BOOTSTRAP
+          value: "1"
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9092

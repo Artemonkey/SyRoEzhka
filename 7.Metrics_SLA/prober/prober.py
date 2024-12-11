@@ -92,6 +92,7 @@ class OncallProberClient:
         PROBER_CREATE_EVENT_SCENARIO_TOTAL.inc()
         logging.debug("try create event")
 
+        # Default user with team.
         user = "jdoe"
         team = "Test Team"
         role = "primary"
@@ -100,11 +101,11 @@ class OncallProberClient:
         login_request = None
         create_request = None
 
-        # Create a session 
+        # Create a session
         session = requests.Session()
 
         try:
-            # Send POST request to log in
+            # Send POST request to log in. Auth from default user with team. Session keeps cookie and other headers.
             login_request = session.post('%s/login' % (self.oncall_url), headers={
                                             'Content-Type': 'application/x-www-form-urlencoded'},
                                             data='username=jdoe&password=jdoe')
@@ -115,7 +116,7 @@ class OncallProberClient:
             PROBER_CREATE_EVENT_SCENARIO_SUCCESS_LOGIN_TOTAL.inc()
         finally:
             try:
-                # Create a event
+                # Create a event: start after week, end after two weeks from now
                 unixtimestamp = int(time.time())
                 week_in_seconds = 604800
                 create_request = session.post('%s/api/v0/events' % (self.oncall_url), json={
@@ -130,7 +131,7 @@ class OncallProberClient:
                 PROBER_CREATE_EVENT_SCENARIO_SUCCESS_FAIL_TOTAL.inc()
             finally:
                 try:
-                    # Delete the event
+                    # Delete the event by id from previous request
                     delete_request = session.delete('%s/api/v0/events/%s' % (self.oncall_url, create_request.text))
                 except Exception as err:
                     logging.debug(err)

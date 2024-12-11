@@ -8,6 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 ENV ONCALL_EXPORTER_URL=http://oncall.default.svc.cluster.local:8080
+# ENV ONCALL_EXPORTER_LOG_LEVEL=10
 EXPOSE 9092
 
 CMD [ "python", "./prober.py" ]
