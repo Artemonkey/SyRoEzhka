@@ -15,7 +15,7 @@ scrape_configs:
     static_configs:
         - targets: ['kube-state-metrics.kube-state-metrics.svc.cluster.local:8080']
       # - targets: ['kube-state-metrics.local']
-  - job_name: 'oncall-user-prober'
+  - job_name: 'oncall-event-prober'
     scrape_interval: 15s
     static_configs:
         - targets: ['my-prober.default.svc.cluster.local:9092']
