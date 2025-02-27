@@ -16,4 +16,8 @@ spec:
       name: metrics
       port: 9091
       targetPort: 9091
+<<<<<<< HEAD:3.Oncall/oncall/service.yaml
       nodePort: 30001
+=======
+      nodePort: 30001
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b:3.OnCall/oncall/service.yaml

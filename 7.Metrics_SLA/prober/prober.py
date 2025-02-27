@@ -92,6 +92,10 @@ class OncallProberClient:
         PROBER_CREATE_EVENT_SCENARIO_TOTAL.inc()
         logging.debug("try create event")
 
+<<<<<<< HEAD
+=======
+        # Default user with team.
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
         user = "jdoe"
         team = "Test Team"
         role = "primary"
@@ -104,7 +108,11 @@ class OncallProberClient:
         session = requests.Session()
 
         try:
+<<<<<<< HEAD
             # Send POST request to log in
+=======
+            # Send POST request to log in. Auth from default user with team. Session keeps cookie and other headers.
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
             login_request = session.post('%s/login' % (self.oncall_url), headers={
                                             'Content-Type': 'application/x-www-form-urlencoded'},
                                             data='username=jdoe&password=jdoe')
@@ -115,7 +123,11 @@ class OncallProberClient:
             PROBER_CREATE_EVENT_SCENARIO_SUCCESS_LOGIN_TOTAL.inc()
         finally:
             try:
+<<<<<<< HEAD
                 # Create a event
+=======
+                # Create a event: start after week, end after two weeks from now
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
                 unixtimestamp = int(time.time())
                 week_in_seconds = 604800
                 create_request = session.post('%s/api/v0/events' % (self.oncall_url), json={
@@ -130,7 +142,11 @@ class OncallProberClient:
                 PROBER_CREATE_EVENT_SCENARIO_SUCCESS_FAIL_TOTAL.inc()
             finally:
                 try:
+<<<<<<< HEAD
                     # Delete the event
+=======
+                    # Delete the event by id from previous request
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
                     delete_request = session.delete('%s/api/v0/events/%s' % (self.oncall_url, create_request.text))
                 except Exception as err:
                     logging.debug(err)
@@ -146,8 +162,13 @@ class OncallProberClient:
         
         # Check all response statuses
         if login_request.status_code == 200 and create_request.status_code == 201 \
+<<<<<<< HEAD
 		and delete_request.status_code == 200 \
             	and logout_request.status_code == 200:
+=======
+            and delete_request.status_code == 200 \
+            and logout_request.status_code == 200:
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
             PROBER_CREATE_EVENT_SCENARIO_SUCCESS_TOTAL.inc()
         else:
             PROBER_CREATE_EVENT_SCENARIO_SUCCESS_FAIL_TOTAL.inc()
@@ -187,4 +208,8 @@ def terminate(signal, frame):
 
 if __name__ == "__main__":
     signal.signal(signal.SIGTERM, terminate)
+<<<<<<< HEAD
     main()
+=======
+    main()
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b

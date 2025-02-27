@@ -21,14 +21,22 @@ class Config(object):
     mysql_user = env("MYSQL_USER", 'root')
     mysql_password = env("MYSQL_PASS", '1234')
     mysql_db_name = env("MYSQL_DB_NAME", 'sla')
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
 class Mysql:
     def __init__(self, config: Config) -> None:
         logging.info("Connecting to db")
 
         self.connection = mysql.connector.connect(host=config.mysql_host, user=config.mysql_user,
                                                   passwd=config.mysql_password, auth_plugin='caching_sha2_password')
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
         self.table_name = 'indicators'
 
         logging.info('Starting migration')
@@ -36,7 +44,13 @@ class Mysql:
         cursor = self.connection.cursor()
         cursor.execute('CREATE DATABASE IF NOT EXISTS %s' %
                        (config.mysql_db_name))
+<<<<<<< HEAD
         cursor.execute('USE sla')
+=======
+        
+        cursor.execute('USE sla')
+        
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS %s(
                        datetime datetime not null default NOW(),
@@ -63,7 +77,11 @@ class Mysql:
 class PrometheusRequest:
     def __init__(self, config: Config) -> None:
         self.prometheus_api_url = config.prometheus_api_url
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
     def lastValue(self, query, time, default):
         try:
             responce = requests.get(
@@ -140,4 +158,8 @@ def terminate(signal, frame):
 
 if __name__ == "__main__":
     signal.signal(signal.SIGTERM, terminate)
+<<<<<<< HEAD
     main()
+=======
+    main()
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b

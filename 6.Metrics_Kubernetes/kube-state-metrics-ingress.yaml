@@ -16,4 +16,8 @@ spec:
               service:
                 name: kube-state-metrics
                 port:
+<<<<<<< HEAD
                   number: 8080
+=======
+                  number: 8080
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b

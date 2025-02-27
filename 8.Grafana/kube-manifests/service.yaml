@@ -11,4 +11,8 @@ spec:
       name: app
       port: 3000
       targetPort: 3000
+<<<<<<< HEAD
       nodePort: 30005
+=======
+      nodePort: 30005
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b

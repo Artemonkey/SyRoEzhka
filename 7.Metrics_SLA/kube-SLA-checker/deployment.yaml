@@ -1,29 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prometheus
+  name: sla-checker
   labels:
-    app: prometheus
+    app: sla-checker
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prometheus
+      app: sla-checker
   template:
     metadata:
       labels:
-        app: prometheus
+        app: sla-checker
     spec:
       containers:
-      - name: prometheus
-        image: prom-docker:latest
+      - name: sla-checker
+        image: sla-checker:latest
         env:
         - name: DOCKER_DB_BOOTSTRAP
           value: "1"
         imagePullPolicy: Never
         ports:
-<<<<<<< HEAD
-        - containerPort: 9090
-=======
-        - containerPort: 9090
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
+        - containerPort: 80
