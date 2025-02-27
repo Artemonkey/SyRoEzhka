@@ -21,22 +21,14 @@ class Config(object):
     mysql_user = env("MYSQL_USER", 'root')
     mysql_password = env("MYSQL_PASS", '1234')
     mysql_db_name = env("MYSQL_DB_NAME", 'sla')
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
 class Mysql:
     def __init__(self, config: Config) -> None:
         logging.info("Connecting to db")
 
         self.connection = mysql.connector.connect(host=config.mysql_host, user=config.mysql_user,
                                                   passwd=config.mysql_password, auth_plugin='caching_sha2_password')
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
         self.table_name = 'indicators'
 
         logging.info('Starting migration')
@@ -44,13 +36,7 @@ class Mysql:
         cursor = self.connection.cursor()
         cursor.execute('CREATE DATABASE IF NOT EXISTS %s' %
                        (config.mysql_db_name))
-<<<<<<< HEAD
         cursor.execute('USE sla')
-=======
-        
-        cursor.execute('USE sla')
-        
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS %s(
                        datetime datetime not null default NOW(),
@@ -77,11 +63,7 @@ class Mysql:
 class PrometheusRequest:
     def __init__(self, config: Config) -> None:
         self.prometheus_api_url = config.prometheus_api_url
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
     def lastValue(self, query, time, default):
         try:
             responce = requests.get(
@@ -92,12 +74,11 @@ class PrometheusRequest:
                 return default
             if len(content['data']['result']) == 0:
                 return default
-            
             return content['data']['result'][0]['value'][1]
         except Exception as error:
             logging.error(error)
             return default
-        
+
 def setup_logging(config: Config):
     logging.basicConfig(
         stream=sys.stdout,
@@ -114,18 +95,17 @@ def main():
 
     while True:
         logging.debug(f"Run sla checker")
-        
+
         unixtimestamp = int(time.time())
         date_format = datetime.fromtimestamp(
             unixtimestamp).strftime('%Y-%m-%d %H:%M:%S')
-        
         value = prom.lastValue(
             'increase(prober_create_event_scenario_success_total[1m])', unixtimestamp, 0)
-        
+
         value = int(float(value))
         db.save_indicator(name='prober_create_event_scenario_success_total',
                           slo=4, value=value, is_bad=value < 3, time=date_format)
-        
+
         value = prom.lastValue(
             'increase(prober_create_event_scenario_success_fail_total[1m])', unixtimestamp, 100)
         
@@ -158,8 +138,4 @@ def terminate(signal, frame):
 
 if __name__ == "__main__":
     signal.signal(signal.SIGTERM, terminate)
-<<<<<<< HEAD
     main()
-=======
-    main()
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b

@@ -14,7 +14,11 @@ spec:
   selector:
     app: kube-state-metrics
 <<<<<<< HEAD
+<<<<<<< HEAD
   type: ClusterIP
+=======
+  type: ClusterIP
+>>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
 =======
   type: ClusterIP
 >>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b

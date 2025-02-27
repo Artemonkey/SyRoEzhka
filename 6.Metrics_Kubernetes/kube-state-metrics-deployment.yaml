@@ -21,11 +21,7 @@ spec:
           args:
             - '--resources=pods'
             - '--namespaces=kube-state-metrics,default'
-<<<<<<< HEAD
           image: k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.5.0
-=======
-          image: k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.5.0                  
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
           ports:
             - containerPort: 8080
               name: http
@@ -40,8 +36,4 @@ spec:
               path: /healthz
               port: 8080
             initialDelaySeconds: 15
-<<<<<<< HEAD
             periodSeconds: 20
-=======
-            periodSeconds: 20
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b

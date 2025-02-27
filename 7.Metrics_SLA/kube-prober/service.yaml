@@ -11,8 +11,4 @@ spec:
       name: app
       port: 9092
       targetPort: 9092
-<<<<<<< HEAD
       nodePort: 30004
-=======
-      nodePort: 30004
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b

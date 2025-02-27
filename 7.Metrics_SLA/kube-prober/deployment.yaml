@@ -14,10 +14,7 @@ spec:
       labels:
         app: my-prober
     spec:
-<<<<<<< HEAD
       serviceAccountName: prober-user-account
-=======
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
       containers:
       - name: my-prober
         image: my-prober:latest
@@ -26,8 +23,4 @@ spec:
           value: "1"
         imagePullPolicy: Never
         ports:
-<<<<<<< HEAD
         - containerPort: 9092
-=======
-        - containerPort: 9092
->>>>>>> 8c4c1c3889567a10cfc12ed1e5b3b362a4b1337b
