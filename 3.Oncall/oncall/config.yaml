@@ -12,8 +12,8 @@ data:
     oncall_host: oncall.local
     metrics: prometheus
     prometheus:
-      oncall_metrics:
-        server_port: 8000
+      oncall-notifier:
+        server_port: 9091
     db:
       conn:
         kwargs:
@@ -32,7 +32,7 @@ data:
       encrypt_key: 'abc'
       sign_key: '123'
     auth:
-      debug: False
+      debug: True
       module: 'oncall.auth.modules.debug'
     notifier:
       skipsend: True
@@ -90,3 +90,4 @@ data:
     slack_instance: foobar
     header_color: '#3a3a3a'
     team_managed_message: 'Managed team - this team is managed via API'
+

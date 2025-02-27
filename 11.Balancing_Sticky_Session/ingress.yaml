@@ -1,10 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: oncall-ingress
+  name: oncall-ingress-sticky
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/affinity-mode: "persistent"
+    nginx.ingress.kubernetes.io/session-cookie-name: "oncall-auth"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "60"
 spec:
   rules:
     - host: oncall.local
@@ -26,4 +30,4 @@ spec:
               service:
                 name: oncall
                 port:
-                  number: 8000
+                  number: 9091

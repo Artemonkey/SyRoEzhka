@@ -3,3 +3,5 @@ services:
     build: 5.Metrics_Prometheus/
     ports:
       - 9090:9090
+    expose:
+      - 9090:9090

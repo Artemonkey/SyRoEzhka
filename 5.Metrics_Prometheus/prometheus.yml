@@ -1,11 +1,22 @@
 global:
-  scrape_interval:     15s
+  scrape_interval: 10s
 scrape_configs:
-  - job_name: 'prometheus'  
+  - job_name: 'prometheus'
     scrape_interval: 5s
     static_configs:
       - targets: ['localhost:9090']
   - job_name: 'oncall'
-    scrape_interval: 10s
+    scrape_interval: 5s
     static_configs:
-      - targets: ['oncall.metrics.local:8000']
+        - targets: ['oncall.default.svc.cluster.local:9091']
+      # - targets: ['oncall.metrics.local']
+  - job_name: 'kube-state'
+    scrape_interval: 7s
+    static_configs:
+        - targets: ['kube-state-metrics.kube-state-metrics.svc.cluster.local:8080']
+      # - targets: ['kube-state-metrics.local']
+  - job_name: 'oncall-event-prober'
+    scrape_interval: 15s
+    static_configs:
+        - targets: ['my-prober.default.svc.cluster.local:9092']
+      # - targets: ['my-prober.local']
