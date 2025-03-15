@@ -14,6 +14,8 @@ http {
     server {
         listen 8080;
         root /data/up1;
+	auth_basic 		"Administrator's area";	
+	auth_basic_user_file	"/etc/nginx/.htpasswd";
 
         location / {
         }

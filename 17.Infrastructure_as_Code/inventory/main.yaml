@@ -1,0 +1,14 @@
+---
+- name: Deploy on production stage
+  hosts: production
+  vars_files:
+    - ./secrets/passwd.yaml # encrypted by ansible-vault file with "login: password" for auth
+  roles:
+    - common
+
+- name: Deploy on testing stage
+  hosts: testing
+  vars_files:
+    - ./secrets/passwd.yaml # encrypted by ansible-vault file with "login: password" for auth
+  roles:
+    - common

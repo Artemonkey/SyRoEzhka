@@ -1,0 +1,80 @@
+---
+- name: Add nginx stable repository from PPA
+  ansible.builtin.apt_repository:
+    repo: 'ppa:nginx/stable'
+    state: present
+
+- name: Ensure nginx is at the latest version
+  ansible.builtin.apt:
+    name: nginx
+    state: latest
+    update_cache: true
+  notify:
+    - Start nginx
+
+- name: Ensure passlib is at the latest version
+  ansible.builtin.apt:
+    name: python3-passlib # python3-passlib if Ubuntu > 20.04
+    state: latest
+    update_cache: true
+
+- name: Create folder for data
+  ansible.builtin.file:
+    path: /data
+    state: directory
+    mode: u=rwx,g=rwx,o=r
+    group: www-data
+- name: Create subfolder for data
+  ansible.builtin.file:
+    path: /data/up1
+    state: directory
+    mode: u=rwx,g=rwx,o=r
+    group: www-data
+- name: Create index.html
+  ansible.builtin.file:
+    path: /data/up1/index.html
+    state: touch
+    mode: u=rwx,g=rwx,o=r
+    group: www-data
+
+- name: Create config file for nginx
+  ansible.builtin.file:
+    path: /etc/nginx/nginx.conf
+    state: touch
+    mode: u=rw,g=wr,o=r
+    group: www-data
+
+- name: Create file for auth data
+  ansible.builtin.file:
+    path: /etc/nginx/.htpasswd
+    state: touch
+    mode: u=rw,g=rw,o=r
+    group: www-data
+
+- name: Create auth data for user with hashed password
+  community.general.htpasswd:
+    hash_scheme: sha256_crypt
+    mode: u=rw,g=rw,o=r
+    name: "{{ user }}"
+    password: "{{ user1 }}"
+    path: /etc/nginx/.htpasswd
+    group: www-data
+- name: Create auth data for user with hashed password
+  community.general.htpasswd:
+    hash_scheme: sha256_crypt
+    mode: u=rw,g=rw,o=r
+    name: Administrator
+    password: "{{ user2 }}"
+    path: /etc/nginx/.htpasswd
+    group: www-data
+
+- name: Fill index.html with data using template
+  ansible.builtin.template:
+    src: ./templates/index.j2
+    dest: /data/up1/index.html    
+- name: Insert nginx configuration using template
+  ansible.builtin.template:
+    src: ./templates/nginx.j2
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - Restart nginx
